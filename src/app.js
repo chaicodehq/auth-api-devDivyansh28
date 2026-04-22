@@ -4,6 +4,7 @@ import userRoutes from './routes/user.routes.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 import { notFound } from './middlewares/notFound.middleware.js';
 
+
 /**
  * TODO: Create Express app
  *
@@ -17,5 +18,19 @@ import { notFound } from './middlewares/notFound.middleware.js';
  * 8. Return app
  */
 export function createApp() {
-  // Your code here
+  const app = express();  // Creating of app with express
+
+
+  app.use(express.json()); // Now we are using express.json() as middleware it parses incoming json responses into req.body without this req.body is undefined and remember that it also have a limit 
+
+  app.get('/health',(req,res)=>{
+    res.send({ok: true})
+  })
+
+  app.use('/api/auth',authRoutes);
+  app.use('/api/users',userRoutes);
+
+  app.use(notFound);
+  app.use(errorHandler);
+
 }

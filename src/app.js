@@ -24,7 +24,7 @@ export function createApp() {
   app.use(express.json()); // Now we are using express.json() as middleware it parses incoming json responses into req.body without this req.body is undefined and remember that it also have a limit 
 
   app.get('/health',(req,res)=>{
-    res.send({ok: true})
+     res.status(200).json({ok : true});
   })
 
   app.use('/api/auth',authRoutes);
@@ -33,4 +33,5 @@ export function createApp() {
   app.use(notFound);
   app.use(errorHandler);
 
+  return app;
 }
